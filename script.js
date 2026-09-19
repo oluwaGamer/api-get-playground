@@ -17,13 +17,13 @@ function codeFor(url) {
   };
   if (!explainCode.checked) return examples[language.value];
 
-  const explanations = {
-    javascript: `// 1. Send a GET request to the selected API endpoint.\n// 2. Check whether the server returned a successful response.\n// 3. Convert the JSON response into JavaScript data.\n// 4. Use or display the returned data.\n\n`,
-    jquery: `// 1. Send a GET request and ask jQuery to parse JSON.\n// 2. Use the returned data when the request succeeds.\n// 3. Show the HTTP status if the request fails.\n\n`,
-    php: `// 1. Store the API URL.\n// 2. Use cURL to make a server-side GET request.\n// 3. Check the HTTP status code.\n// 4. Decode and use the returned JSON data.\n\n`,
-    java: `// 1. Create an HTTP client.\n// 2. Build a GET request for the selected endpoint.\n// 3. Send the request and receive the response body.\n// 4. Check the status and use the JSON text.\n\n`
+  const explainedExamples = {
+    javascript: `// Send a GET request to the selected API endpoint.\nconst response = await fetch('${url}');\n\n// Stop and report an error when the server does not return success.\nif (!response.ok) {\n  throw new Error(\`HTTP error: \${response.status}\`);\n}\n\n// Convert the JSON response into usable JavaScript data.\nconst data = await response.json();\n\n// Use the returned data (the page displays it instead of only logging it).\nconsole.log(data);`,
+    jquery: `// Send a GET request and automatically parse its JSON response.\n$.getJSON('${url}')\n  // This callback runs when the request succeeds.\n  .done((data) => {\n    // Use the JSON data returned by the API.\n    console.log(data);\n  })\n  // This callback runs when the request fails.\n  .fail((jqXHR) => {\n    // Read the HTTP status code to help diagnose the error.\n    console.error('HTTP error:', jqXHR.status);\n  });`,
+    php: `<?php\n// Store the URL of the API endpoint to request.\n$url = '${url}';\n\n// Create a cURL request for that URL.\n$ch = curl_init($url);\n// Tell cURL to return the response rather than print it immediately.\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\n// Run the GET request and save the response text.\n$response = curl_exec($ch);\n// Read the HTTP status code returned by the server.\n$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);\n// Close the cURL connection because the request is complete.\ncurl_close($ch);\n\n// Stop if the API did not send a successful response.\nif ($statusCode !== 200) {\n  throw new Exception("HTTP error: $statusCode");\n}\n\n// Convert the JSON response into a PHP array.\n$data = json_decode($response, true);\n// Display the returned data.\nprint_r($data);`,
+    java: `import java.net.URI;\nimport java.net.http.HttpClient;\nimport java.net.http.HttpRequest;\nimport java.net.http.HttpResponse;\n\n// Create an HTTP client that can make web requests.\nvar client = HttpClient.newHttpClient();\n// Build a request for the selected API URL.\nvar request = HttpRequest.newBuilder()\n    .uri(URI.create("${url}"))\n    // Set the request method to GET.\n    .GET()\n    .build();\n// Send the request and keep the response body as text.\nvar response = client.send(request, HttpResponse.BodyHandlers.ofString());\n\n// Stop if the API did not return a successful response.\nif (response.statusCode() != 200) {\n  throw new RuntimeException("HTTP error: " + response.statusCode());\n}\n// Display the JSON text returned by the API.\nSystem.out.println(response.body());`
   };
-  return explanations[language.value] + examples[language.value];
+  return explainedExamples[language.value];
 }
 
 function updateCode() {
