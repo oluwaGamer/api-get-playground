@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GET Playground</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <p class="eyebrow">Wazzzzap — API playground</p>
+      <h1>Make a GET request.</h1>
+      <p class="intro">Choose a public placeholder API, inspect the code, then fetch and view its response.</p>
+      <section class="panel controls" aria-labelledby="request-title">
+        <div>
+          <p class="section-label" id="request-title">1. Pick an endpoint</p>
+          <label for="endpoint">Placeholder API</label>
+          <select id="endpoint" name="endpoint">
+            <option value="https://jsonplaceholder.typicode.com/users">JSONPlaceholder — Users</option>
+            <option value="https://jsonplaceholder.typicode.com/posts?_limit=5">JSONPlaceholder — 5 Posts</option>
+            <option value="https://jsonplaceholder.typicode.com/todos?_limit=10">JSONPlaceholder — 10 Todos</option>
+            <option value="https://jsonplaceholder.typicode.com/comments?_limit=5">JSONPlaceholder — 5 Comments</option>
+            <option value="https://dummyjson.com/products?limit=5">DummyJSON — 5 Products</option>
+            <option value="https://dummyjson.com/users?limit=5">DummyJSON — 5 Users</option>
+            <option value="https://dummyjson.com/recipes?limit=3">DummyJSON — 3 Recipes</option>
+            <option value="https://dummyjson.com/quotes?limit=5">DummyJSON — 5 Quotes</option>
+            <option value="https://dummyjson.com/carts?limit=3">DummyJSON — 3 Carts</option>
+            <option value="https://dummyjson.com/test">DummyJSON — Connection Test</option>
+          </select>
+        </div>
+        <div>
+          <label for="language">Code language</label>
+          <select id="language" name="language">
+            <option value="javascript">JavaScript (browser)</option>
+            <option value="jquery">jQuery (browser)</option>
+            <option value="php">PHP (server)</option>
+            <option value="java">Java (server)</option>
+          </select>
+        </div>
+        <label class="explain-toggle" for="explain-code"><input id="explain-code" type="checkbox" /> Explain code step by step</label>
+        <button id="run-button" type="button">Run GET request <span aria-hidden="true">→</span></button>
+      </section>
+      <section class="panel" aria-labelledby="code-title">
+        <div class="panel-heading"><div><p class="section-label" id="code-title">2. Code example</p><p class="status" id="code-note">JavaScript runs in this page. PHP and Java run on a server.</p></div><button class="copy-button" id="copy-button" type="button">Copy</button></div>
+        <pre><code id="request-code"></code></pre>
+      </section>
+      <section class="panel result-panel" aria-labelledby="result-title">
+        <div class="panel-heading"><div><p class="section-label" id="result-title">3. Response data</p><p class="status" id="status" role="status">Ready to make a request.</p></div><span class="method">GET</span></div>
+        <pre class="response"><code id="response-data">// Your API response will appear here.</code></pre>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
